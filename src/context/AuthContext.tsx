@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import { fetchSheet } from '@/lib/fetchers';
 import type { UserPermissions } from '@/types/sheets';
 import React, { createContext, useContext, useEffect, useState } from 'react';
@@ -57,6 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthContext.Provider value={{ login, loggedIn, logout, user: userPermissions!, loading }}>
             {children}
+            <Toaster expand richColors theme="light" closeButton />
         </AuthContext.Provider>
     );
 };

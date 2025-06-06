@@ -1,7 +1,6 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import Sidebar from '@/components/element/Sidebar';
 import { Outlet } from 'react-router-dom';
-import { Toaster } from '@/components/ui/sonner';
 import type { RouteAttributes } from './types';
 
 export default ({ routes }: { routes: RouteAttributes[] }) => {
@@ -17,7 +16,6 @@ export default ({ routes }: { routes: RouteAttributes[] }) => {
                         </main>
                     </SidebarInset>
                 </SidebarProvider>
-            <Toaster expand richColors theme="light" closeButton />
         </div>
     );
 };
