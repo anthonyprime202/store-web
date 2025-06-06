@@ -181,6 +181,7 @@ export default () => {
     });
 
     const form = useForm({ resolver: zodResolver(schema) });
+
     useEffect(() => {
         if (selectedUser) {
             form.reset({
@@ -244,6 +245,10 @@ export default () => {
         }
     }
 
+    function onError(e: any) {
+        console.log(e);
+        toast.error('Please fill all required fields');
+    }
     return (
         <div>
             <Dialog open={openDialog} onOpenChange={(open) => setOpenDialog(open)}>
@@ -276,7 +281,7 @@ export default () => {
 
                 <DialogContent className="sm:max-w-3xl">
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+                        <form onSubmit={form.handleSubmit(onSubmit, onError)} className="space-y-7">
                             <DialogHeader className="space-y-1">
                                 <DialogTitle className="text-lg">
                                     {selectedUser ? 'Edit' : 'Create'} User

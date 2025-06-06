@@ -150,21 +150,22 @@ export type UserPermissions = {
     receiveItemAction: boolean;
     storeOutApprovalView: boolean;
     storeOutApprovalAction: boolean;
-    inventoryView: boolean;
     pendingIndentsView: boolean;
 };
 
 export const allPermissionKeys = [
-    'administrate',
-    'createIndent',
-    'indentApprovalView',
-    'indentApprovalAction',
-    'updateVendorView',
-    'updateVendorAction',
-    'threePartyApprovalView',
-    'threePartyApprovalAction',
-    'receiveItemView',
-    'receiveItemAction',
-    'storeOutApprovalView',
-    'storeOutApprovalAction',
+    "administrate",
+    "createIndent",
+    "createPo",
+    "indentApprovalView",
+    "indentApprovalAction",
+    "updateVendorView",
+    "updateVendorAction",
+    "threePartyApprovalView",
+    "threePartyApprovalAction",
+    "receiveItemView",
+    "receiveItemAction",
+    "storeOutApprovalView",
+    "storeOutApprovalAction",
+    "pendingIndentsView",
 ] as const;
