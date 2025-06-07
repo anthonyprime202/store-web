@@ -338,6 +338,7 @@ export default () => {
                 indentNumber: selectedIndent?.indentNumber,
                 poDate: selectedIndent?.poDate,
                 poNumber: selectedIndent?.poNumber,
+                vendor: selectedIndent?.vendor,
                 receivedStatus: values.status,
                 receivedQuantity: values.quantity,
                 uom: selectedIndent?.uom,

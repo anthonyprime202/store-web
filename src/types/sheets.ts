@@ -1,4 +1,4 @@
-export type Sheet = 'INDENT' | 'RECEIVED' | 'MASTER' | 'USER' | 'PO MASTER';
+export type Sheet = 'INDENT' | 'RECEIVED' | 'MASTER' | 'USER' | 'PO MASTER' | "INVENTORY";
 
 export type IndentSheet = {
     timestamp: string;
@@ -56,6 +56,44 @@ export type IndentSheet = {
     issuedQuantity: number;
 };
 
+export type ReceivedSheet = {
+    timestamp: string;
+    indentNumber: string;
+    poDate: string;
+    poNumber: string;
+    vendor: string;
+    receivedStatus: string;
+    receivedQuantity: number;
+    uom: string;
+    photoOfProduct: string;
+    warrantyStatus: string;
+    endDate: string;
+    billStatus: string;
+    billNumber: string;
+    billAmount: number;
+    photoOfBill: string;
+    anyTransportations: string;
+    transporterName: string;
+    transportingAmount: number;
+};
+
+export type InventorySheet = {
+  groupHead: string;
+  itemName: string;
+  uom: string;
+  maxLevel: number;
+  opening: number;
+  individualRate: number;
+  indented: number;
+  approved: number;
+  purchaseQuantity: number;
+  outQuantity: number;
+  current: number;
+  totalPrice: number;
+  colorCode: string;
+};
+
+
 export type PoMasterSheet = {
     timestamp: string;
     partyName: string;
@@ -87,26 +125,6 @@ export type PoMasterSheet = {
     term8: string;
     term9: string;
     term10: string;
-};
-
-export type ReceivedSheet = {
-    timestamp: string;
-    indentNumber: string;
-    poDate: string;
-    poNumber: string;
-    receivedStatus: string;
-    receivedQuantity: number;
-    uom: string;
-    photoOfProduct: string;
-    warrantyStatus: string;
-    endDate: string;
-    billStatus: string;
-    billNumber: string;
-    billAmount: number;
-    photoOfBill: string;
-    anyTransportations: string;
-    transporterName: string;
-    transportingAmount: number;
 };
 
 export type Vendor = {

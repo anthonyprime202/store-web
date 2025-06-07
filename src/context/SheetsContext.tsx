@@ -1,5 +1,5 @@
 import { fetchSheet } from '@/lib/fetchers';
-import type { IndentSheet, PoMasterSheet, ReceivedSheet } from '@/types';
+import type { IndentSheet, InventorySheet, PoMasterSheet, ReceivedSheet } from '@/types';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -12,12 +12,13 @@ interface SheetsState {
     indentSheet: IndentSheet[];
     poMasterSheet: PoMasterSheet[];
     receivedSheet: ReceivedSheet[];
+    inventorySheet: InventorySheet[];
 
     indentLoading: boolean;
     poMasterLoading: boolean;
     receivedLoading: boolean;
-    allLoading: boolean
-
+    inventoryLoading: boolean;
+    allLoading: boolean;
 }
 
 const SheetsContext = createContext<SheetsState | null>(null);
@@ -26,10 +27,12 @@ export const SheetsProvider = ({ children }: { children: React.ReactNode }) => {
     const [indentSheet, setIndentSheet] = useState<IndentSheet[]>([]);
     const [receivedSheet, setReceivedSheet] = useState<ReceivedSheet[]>([]);
     const [poMasterSheet, setPoMasterSheet] = useState<PoMasterSheet[]>([]);
+    const [inventorySheet, setInventorySheet] = useState<InventorySheet[]>([]);
 
     const [indentLoading, setIndentLoading] = useState(true);
     const [poMasterLoading, setPoMasterLoading] = useState(true);
     const [receivedLoading, setReceivedLoading] = useState(true);
+    const [inventoryLoading, setInventoryLoading] = useState(true);
     const [allLoading, setAllLoading] = useState(true);
 
     function updateIndentSheet() {
@@ -55,12 +58,21 @@ export const SheetsProvider = ({ children }: { children: React.ReactNode }) => {
         });
     }
 
+    function updateInventorySheet() {
+        setInventoryLoading(true);
+        fetchSheet('INVENTORY').then((res) => {
+            setInventorySheet(res as InventorySheet[]);
+            setInventoryLoading(false);
+        });
+    }
+
     function updateAll() {
         setAllLoading(true);
         updateReceivedSheet();
         updateIndentSheet();
         updatePoMasterSheet();
-        setAllLoading(false)
+        updateInventorySheet();
+        setAllLoading(false);
     }
 
     useEffect(() => {
@@ -82,11 +94,13 @@ export const SheetsProvider = ({ children }: { children: React.ReactNode }) => {
                 updateAll,
                 indentSheet,
                 poMasterSheet,
+                inventorySheet,
                 receivedSheet,
                 indentLoading,
                 poMasterLoading,
                 receivedLoading,
-                allLoading
+                inventoryLoading,
+                allLoading,
             }}
         >
             {children}
