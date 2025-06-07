@@ -13,8 +13,7 @@ import {
     DialogFooter,
     DialogClose,
 } from '../ui/dialog';
-import { type MasterSheet } from '@/types';
-import { fetchSheet, postToSheet, uploadFile } from '@/lib/fetchers';
+import {  postToSheet, uploadFile } from '@/lib/fetchers';
 import { z } from 'zod';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -51,13 +50,12 @@ interface HistoryData {
 }
 
 export default () => {
-    const { indentSheet, indentLoading, updateIndentSheet } = useSheets();
+    const { indentSheet, indentLoading, updateIndentSheet, masterSheet: options } = useSheets();
     const { user } = useAuth();
 
     const [selectedIndent, setSelectedIndent] = useState<VendorUpdateData | null>(null);
     const [historyData, setHistoryData] = useState<HistoryData[]>([]);
     const [tableData, setTableData] = useState<VendorUpdateData[]>([]);
-    const [options, setOptions] = useState<MasterSheet | null>(null);
     const [openDialog, setOpenDialog] = useState(false);
 
     // Fetching table data
@@ -193,12 +191,6 @@ export default () => {
         },
     ];
 
-    // Get options for the form
-    useEffect(() => {
-        fetchSheet('MASTER').then((res) => {
-            setOptions(res as MasterSheet);
-        });
-    }, []);
 
     // Creating Regular Vendor form
     const regularSchema = z.object({

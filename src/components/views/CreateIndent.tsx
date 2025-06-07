@@ -15,25 +15,13 @@ import {
 } from '@/components/ui/select';
 import { ClipLoader as Loader } from 'react-spinners';
 import { ClipboardList, Trash } from 'lucide-react';
-import { fetchSheet, postToSheet, uploadFile } from '@/lib/fetchers';
-import { useEffect, useState } from 'react';
-import type { IndentSheet, MasterSheet } from '@/types';
+import { postToSheet, uploadFile } from '@/lib/fetchers';
+import type { IndentSheet } from '@/types';
 import { useSheets } from '@/context/SheetsContext';
 import Heading from '../element/Heading';
 
 export default () => {
-    const { indentSheet, updateIndentSheet } = useSheets();
-    const [options, setOptions] = useState<MasterSheet | null>(null);
-
-    useEffect(() => {
-        fetchSheet('MASTER')
-            .then((res) => {
-                setOptions(res as MasterSheet);
-            })
-            .catch(() => {
-                toast.error('Something went wrong! Please try again');
-            });
-    }, []);
+    const { indentSheet, updateIndentSheet, masterSheet: options } = useSheets();
 
     const schema = z.object({
         indenterName: z.string().nonempty(),

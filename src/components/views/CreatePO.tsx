@@ -8,8 +8,8 @@ import { SidebarTrigger } from '../ui/sidebar';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '../ui/form';
-import type { MasterSheet, PoMasterSheet } from '@/types';
-import { fetchSheet, postToSheet, uploadFile } from '@/lib/fetchers';
+import type { PoMasterSheet } from '@/types';
+import {  postToSheet, uploadFile } from '@/lib/fetchers';
 import { useEffect, useState } from 'react';
 import { useSheets } from '@/context/SheetsContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -35,7 +35,7 @@ function generatePoNumber(poNumbers: string[], today = new Date()): string {
 
     const prefix = `JJSPL/STORES/${fy}/`;
 
-    // Step 2: Extract numbers for current financial year
+    // Step 2: Extract numbers for curre nt financial year
     const numbersInFY = poNumbers
         .filter((po) => po.includes(`/${fy}/`))
         .map((po) => {
@@ -91,14 +91,10 @@ function filterUniquePoNumbers(data: PoMasterSheet[]): PoMasterSheet[] {
 }
 
 export default () => {
-    const { indentSheet, poMasterSheet, updateIndentSheet, updatePoMasterSheet } = useSheets();
-    const [details, setDetails] = useState<MasterSheet | null>(null);
+    const { indentSheet, poMasterSheet, updateIndentSheet, updatePoMasterSheet, masterSheet: details } = useSheets();
     const [readOnly, setReadOnly] = useState(-1);
     const [mode, setMode] = useState<'create' | 'revise'>('create');
 
-    useEffect(() => {
-        fetchSheet('MASTER').then((res) => setDetails(res as MasterSheet));
-    }, []);
 
     const schema = z.object({
         poNumber: z.string().nonempty(),

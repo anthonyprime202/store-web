@@ -201,13 +201,13 @@ export default function UsersTable() {
             </Heading>
 
             <div className="grid gap-3 m-3">
-                <div className="flex gap-3 align-center flex-wrap">
+                <div className="gap-3 grid grid-cols-2 md:grid-cols-4">
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
                                 variant="outline"
                                 data-empty={!startDate}
-                                className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
+                                className="data-[empty=true]:text-muted-foreground w-full min-w-0 justify-start text-left font-normal"
                             >
                                 <CalendarIcon />
                                 {startDate ? (
@@ -226,7 +226,7 @@ export default function UsersTable() {
                             <Button
                                 variant="outline"
                                 data-empty={!endDate}
-                                className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
+                                className="data-[empty=true]:text-muted-foreground w-full min-w-0 justify-start text-left font-normal"
                             >
                                 <CalendarIcon />
                                 {endDate ? format(endDate, 'PPP') : <span>Pick a end date</span>}
@@ -311,7 +311,7 @@ export default function UsersTable() {
                     </Card>
                 </div>
                 <div className="flex gap-3 flex-wrap">
-                    <Card className="w-[55%] min-w-150 flex-grow">
+                    <Card className="w-[55%] md:min-w-150 flex-grow">
                         <CardHeader>
                             <CardTitle className="text-xl">Top Purchased Products</CardTitle>
                         </CardHeader>
@@ -379,7 +379,7 @@ export default function UsersTable() {
                             </ChartContainer>
                         </CardContent>
                     </Card>
-                    <Card className="flex-grow min-w-50 w-[40%]">
+                    <Card className="flex-grow min-w-60 w-[40%]">
                         <CardHeader>
                             <CardTitle className="text-xl">Top Vendors</CardTitle>
                         </CardHeader>
