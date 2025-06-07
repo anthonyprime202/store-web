@@ -137,9 +137,9 @@ export default function UsersTable() {
         );
 
         setChartData(
-            topProducts.map((p) => ({ frequency: p.freq, quantity: p.quantity, name: p.name })).slice(0, 10)
+            topProducts.map((p) => ({ frequency: p.freq, quantity: p.quantity, name: p.name }))
         );
-        setTopVendors(topVendors.slice(0, 10));
+        setTopVendors(topVendors);
         setIndent({ quantity: totalApprovedQuantity, count: approvedIndentCount });
         setPurchase({ quantity: totalPurchasedQuantity, count: receivedPurchaseCount });
         setOut({ quantity: totalIssuedQuantity, count: issuedIndentCount });
@@ -201,7 +201,7 @@ export default function UsersTable() {
             </Heading>
 
             <div className="grid gap-3 m-3">
-                <div className="flex gap-3 align-center">
+                <div className="flex gap-3 align-center flex-wrap">
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
@@ -305,13 +305,13 @@ export default function UsersTable() {
 
                             <div className="text-yellow-500 flex justify-between">
                                 <p className="text-sm ">Low in Stock</p>
-                                <p>{alerts.lowStock}</p>
+                                <p>{alerts.lowStock}</p >
                             </div>
                         </CardContent>
                     </Card>
                 </div>
                 <div className="flex gap-3 flex-wrap">
-                    <Card className="w-[55%] min-w-50 flex-grow">
+                    <Card className="w-[55%] min-w-150 flex-grow">
                         <CardHeader>
                             <CardTitle className="text-xl">Top Purchased Products</CardTitle>
                         </CardHeader>
@@ -379,7 +379,7 @@ export default function UsersTable() {
                             </ChartContainer>
                         </CardContent>
                     </Card>
-                    <Card className="flex-grow min-w-150 w-[40%]">
+                    <Card className="flex-grow min-w-50 w-[40%]">
                         <CardHeader>
                             <CardTitle className="text-xl">Top Vendors</CardTitle>
                         </CardHeader>
