@@ -19,9 +19,14 @@ import { postToSheet, uploadFile } from '@/lib/fetchers';
 import type { IndentSheet } from '@/types';
 import { useSheets } from '@/context/SheetsContext';
 import Heading from '../element/Heading';
+import { useEffect, useState } from 'react';
 
 export default () => {
-    const { indentSheet, updateIndentSheet, masterSheet: options } = useSheets();
+    const { indentSheet: sheet, updateIndentSheet, masterSheet: options } = useSheets();
+    const [indentSheet, setIndentSheet] = useState<IndentSheet[]>([]);
+    useEffect(() => {
+        setIndentSheet(sheet);
+    }, [sheet]);
 
     const schema = z.object({
         indenterName: z.string().nonempty(),
@@ -98,11 +103,26 @@ export default () => {
 
                 rows.push(row);
             }
-            await postToSheet(rows);
-
-            toast.success('Indent created successufully');
-            form.reset();
             setTimeout(() => updateIndentSheet(), 1000);
+            await postToSheet(rows);
+            toast.success('Indent created successufully');
+            form.reset({
+                indenterName: '',
+                indentApproveBy: '',
+                indentType: undefined,
+                products: [
+                    {
+                        attachment: undefined,
+                        uom: '',
+                        productName: '',
+                        specifications: '',
+                        quantity: 1,
+                        areaOfUse: '',
+                        groupHead: '',
+                        department: '',
+                    },
+                ],
+            });
         } catch (_) {
             toast.error('Error while creating indent! Please try again');
         }
