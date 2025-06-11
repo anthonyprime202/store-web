@@ -384,7 +384,7 @@ export default () => {
                                         </div>
                                     </div>
                                     <Tabs
-                                        defaultValue="1"
+                                        defaultValue="0"
                                         className="grid gap-5 p-4 border rounded-md"
                                     >
                                         <TabsList className="w-full p-1">

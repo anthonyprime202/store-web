@@ -41,7 +41,7 @@ export default () => {
     useEffect(() => {
         setTableData(
             indentSheet
-                .filter((sheet) => sheet.planned4 !== '' && sheet.actual4 === '')
+                .filter((sheet) => sheet.planned4 !== '' && sheet.actual4 === '' && sheet.actual3 !== '')
                 .map((sheet) => ({
                     date: formatDate(new Date(sheet.timestamp)),
                     indentNo: sheet.indentNumber,

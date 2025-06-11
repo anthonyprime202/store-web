@@ -465,7 +465,7 @@ export default () => {
                         onSubmit={form.handleSubmit(onSubmit, onError)}
                         className="flex flex-col items-center"
                     >
-                        <div className="w-full space-y-4 p-4 w-full bg-white shadow-md rounded-sm">
+                        <div className="space-y-4 p-4 w-full bg-white shadow-md rounded-sm">
                             <div className="text-center">
                                 <h1 className="text-2xl font-bold">{details?.companyName}</h1>
                                 <div>
