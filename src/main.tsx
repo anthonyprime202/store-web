@@ -86,9 +86,9 @@ const routes: RouteAttributes[] = [
             ).length,
     },
     {
-        path: 'vendor-update',
+        path: 'vendor-rate-approval',
         gateKey: 'updateVendorView',
-        name: 'Update Vendor',
+        name: 'Vendor Rate Approval',
         icon: <UserCheck size={20} />,
         element: <VendorUpdate />,
         notifications: (sheets) =>
@@ -109,9 +109,9 @@ const routes: RouteAttributes[] = [
             ).length,
     },
     {
-        path: 'pending-indents',
+        path: 'pending-pos',
         gateKey: 'pendingIndentsView',
-        name: 'Pending Indents',
+        name: 'Pending POs',
         icon: <ListTodo size={20} />,
         element: <PendingIndents />,
         notifications: (sheets) =>
