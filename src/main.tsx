@@ -86,9 +86,9 @@ const routes: RouteAttributes[] = [
             ).length,
     },
     {
-        path: 'vendor-rate-approval',
+        path: 'vendor-rate-update',
         gateKey: 'updateVendorView',
-        name: 'Vendor Rate Approval',
+        name: 'Vendor Rate Update',
         icon: <UserCheck size={20} />,
         element: <VendorUpdate />,
         notifications: (sheets) =>
