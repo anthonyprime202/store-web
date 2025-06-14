@@ -124,7 +124,7 @@ export default () => {
     return (
         <div>
             <Tabs defaultValue="pending">
-                <Heading heading="Pending Indents" subtext="Indents Pending for Order" tabs>
+                <Heading heading="Pending POs / History" subtext="View pending purchase orders and past orders" tabs>
                     <ListTodo size={50} className="text-primary" />
                 </Heading>
                 <TabsContent value="pending">

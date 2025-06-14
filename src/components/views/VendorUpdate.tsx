@@ -319,7 +319,7 @@ export default () => {
             <Dialog open={openDialog} onOpenChange={setOpenDialog}>
                 <Tabs defaultValue="pending">
                     <Heading
-                        heading="Update Vendor"
+                        heading="Vendor Rate Update"
                         subtext="Update vendors for Regular and Three Party indents"
                         tabs
                     >
