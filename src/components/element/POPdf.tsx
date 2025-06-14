@@ -18,6 +18,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontWeight: 'bold',
+        backgroundColor: "#cfe2f3",
+        paddingVertical: "2",
     },
     companyName: {
         fontSize: '1.2rem',
@@ -159,7 +161,6 @@ const styles = StyleSheet.create({
     },
     tableTotalValue: {
         width: '16%',
-        borderRight: '1pt solid black',
         padding: 4,
     },
     termsContainer: {
