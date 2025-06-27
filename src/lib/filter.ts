@@ -15,7 +15,7 @@ export function analyzeData(
         indentSheet: IndentSheet[];
         receivedSheet: ReceivedSheet[];
     },
-    filters: Filters
+    filters: Filters = {}
 ) {
     const start = filters.startDate ? new Date(filters.startDate) : null;
     const end = filters.endDate ? new Date(filters.endDate) : null;
@@ -25,12 +25,17 @@ export function analyzeData(
 
     const isWithinDate = (dateStr: string) => {
         const d = new Date(dateStr);
-        return (!start || d >= start) && (!end || d <= end);
+        return d.toString() !== 'Invalid Date' && (!start || d >= start) && (!end || d <= end);
     };
 
     const isVendorMatch = (name: string) => vendorSet.size === 0 || vendorSet.has(name);
-
     const isProductMatch = (name: string) => productSet.size === 0 || productSet.has(name);
+
+    // Map from indentNumber to productName
+    const indentProductMap = new Map<string, string>();
+    for (const indent of indentSheet) {
+        indentProductMap.set(indent.indentNumber, indent.productName);
+    }
 
     // -------------------------------
     // Approved Indents
@@ -48,10 +53,14 @@ export function analyzeData(
 
     // -------------------------------
     // Purchases
-    const receivedPurchases = receivedSheet.filter(
-        (r) =>
-            isWithinDate(r.timestamp) && isVendorMatch(r.vendor) && isProductMatch(r.indentNumber) // linking indirect, assuming name in indent
-    );
+    const receivedPurchases = receivedSheet.filter((r) => {
+        const productName = indentProductMap.get(r.indentNumber);
+        return (
+            isWithinDate(r.timestamp) &&
+            isVendorMatch(r.vendor) &&
+            (!productName || isProductMatch(productName))
+        );
+    });
 
     const totalPurchasedQuantity = receivedPurchases.reduce(
         (sum, r) => sum + (r.receivedQuantity ?? 0),
@@ -67,19 +76,24 @@ export function analyzeData(
             isProductMatch(i.productName)
     );
 
-    const totalIssuedQuantity = issuedIndents.reduce((sum, i) => sum + (i.issuedQuantity ?? 0), 0);
+    const totalIssuedQuantity = issuedIndents.reduce(
+        (sum, i) => sum + (i.issuedQuantity ?? 0),
+        0
+    );
 
     // -------------------------------
     // Top 10 Products
     const productFrequencyMap = new Map<string, { freq: number; quantity: number }>();
 
     for (const r of receivedSheet) {
-        if (!isWithinDate(r.timestamp) || !isProductMatch(r.indentNumber)) continue;
-        const name = r.indentNumber;
-        if (!productFrequencyMap.has(name)) {
-            productFrequencyMap.set(name, { freq: 0, quantity: 0 });
+        if (!isWithinDate(r.timestamp)) continue;
+        const productName = indentProductMap.get(r.indentNumber);
+        if (!productName || !isProductMatch(productName)) continue;
+
+        if (!productFrequencyMap.has(productName)) {
+            productFrequencyMap.set(productName, { freq: 0, quantity: 0 });
         }
-        const entry = productFrequencyMap.get(name)!;
+        const entry = productFrequencyMap.get(productName)!;
         entry.freq += 1;
         entry.quantity += r.receivedQuantity;
     }
@@ -95,6 +109,7 @@ export function analyzeData(
 
     for (const r of receivedSheet) {
         if (!isWithinDate(r.timestamp) || !isVendorMatch(r.vendor)) continue;
+
         if (!vendorMap.has(r.vendor)) {
             vendorMap.set(r.vendor, { orders: 0, quantity: 0 });
         }
