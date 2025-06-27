@@ -41,7 +41,7 @@ export function analyzeData(
     // Approved Indents
     const approvedIndents = indentSheet.filter(
         (i) =>
-            i.receiveStatus.toLowerCase() === 'approved' &&
+            i.vendorType.toLowerCase() !== 'reject' &&
             isWithinDate(i.timestamp) &&
             isProductMatch(i.productName)
     );
