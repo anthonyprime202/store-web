@@ -41,7 +41,7 @@ export function analyzeData(
     // Approved Indents
     const approvedIndents = indentSheet.filter(
         (i) =>
-            i.vendorType.toLowerCase() !== 'reject' &&
+            ["three party", "regular"].includes(i.vendorType.toLowerCase()) &&
             isWithinDate(i.timestamp) &&
             isProductMatch(i.productName)
     );
